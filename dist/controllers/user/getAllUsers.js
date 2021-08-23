@@ -40,19 +40,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var connectDb_1 = __importDefault(require("../../config/connectDb"));
-var createNewUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, firstName, lastName, email, sql, user;
-    return __generator(this, function (_b) {
+var getAllUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var sql;
+    return __generator(this, function (_a) {
         try {
-            _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email;
-            if (!firstName || !lastName || !email)
-                throw Error("All fields are required");
-            sql = "INSERT INTO users SET ?";
-            user = { firstName: firstName, lastName: lastName, email: email };
-            connectDb_1.default.query(sql, user, function (err, user) {
+            sql = "SELECT * FROM users";
+            connectDb_1.default.query(sql, function (err, users) {
                 if (err)
                     return res.json({ message: err.message });
-                res.json({ message: "user created" });
+                res.json(users);
             });
         }
         catch (error) {
@@ -61,4 +57,4 @@ var createNewUser = function (req, res) { return __awaiter(void 0, void 0, void 
         return [2 /*return*/];
     });
 }); };
-exports.default = createNewUser;
+exports.default = getAllUsers;

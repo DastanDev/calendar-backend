@@ -35,10 +35,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var connectDb_1 = __importDefault(require("../../config/connectDb"));
 var getUserDetails = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, sql, user;
     return __generator(this, function (_a) {
         try {
+            id = req.params.id;
+            if (!id)
+                throw Error("Id required");
+            sql = "SELECT * FROM USER WHERE id = ?";
+            user = { id: id };
+            connectDb_1.default.query(sql, user, function (err, result) {
+                if (err)
+                    return res.json({ message: err.message });
+                res.json({ message: result[0].rows });
+            });
         }
         catch (error) {
             res.status(400).json({ message: error.message });
