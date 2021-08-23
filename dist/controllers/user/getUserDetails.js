@@ -47,12 +47,12 @@ var getUserDetails = function (req, res) { return __awaiter(void 0, void 0, void
             id = req.params.id;
             if (!id)
                 throw Error("Id required");
-            sql = "SELECT * FROM USER WHERE id = ?";
+            sql = "SELECT * FROM USERS WHERE id = ?";
             user = { id: id };
             connectDb_1.default.query(sql, user, function (err, result) {
                 if (err)
                     return res.json({ message: err.message });
-                res.json({ message: result[0].rows });
+                res.json(result[0]);
             });
         }
         catch (error) {

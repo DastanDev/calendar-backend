@@ -39,37 +39,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var bcryptjs_1 = require("bcryptjs");
-var connectDb_1 = __importDefault(require("../../config/connectDb"));
-var createNewUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, firstName, lastName, email, password, sql, salt, hashedPassword, user, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _b.trys.push([0, 3, , 4]);
-                _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password;
-                if (!firstName || !lastName || !email || !password)
-                    throw Error("All fields are required");
-                sql = "INSERT INTO users SET ?";
-                return [4 /*yield*/, bcryptjs_1.genSalt(10)];
-            case 1:
-                salt = _b.sent();
-                return [4 /*yield*/, bcryptjs_1.hash(password, salt)];
-            case 2:
-                hashedPassword = _b.sent();
-                user = { firstName: firstName, lastName: lastName, email: email, password: hashedPassword };
-                connectDb_1.default.query(sql, user, function (err, user) {
-                    if (err)
-                        return res.json({ message: err.message });
-                    res.json({ message: "user created" });
-                });
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _b.sent();
-                res.status(400).json({ message: error_1.message });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+var bcryptjs_1 = __importDefault(require("bcryptjs"));
+var matchPassword = function (enteredPassword, password) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, bcryptjs_1.default.compare(enteredPassword, password)];
+            case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.default = createNewUser;
+exports.default = matchPassword;

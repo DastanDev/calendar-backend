@@ -35,12 +35,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var connectDb_1 = __importDefault(require("../../config/connectDb"));
+var genToken_1 = __importDefault(require("../../config/genToken"));
+var matchPassword_1 = __importDefault(require("../../config/matchPassword"));
 // /user/login
 // POST
 var loginUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
+    var _a, email, password_1, sql, query;
+    return __generator(this, function (_b) {
         try {
+            _a = req.body, email = _a.email, password_1 = _a.password;
+            if (!email || !password_1)
+                throw Error("All fields required");
+            sql = "SELECT id, email, password FROM users WHERE ?";
+            query = { email: email };
+            connectDb_1.default.query(sql, query, function (err, result) { return __awaiter(void 0, void 0, void 0, function () {
+                var passwordMatches;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (err)
+                                return [2 /*return*/, res.json({ message: err.message })];
+                            if (!result[0])
+                                return [2 /*return*/, res.json({ message: "User does not exist" })];
+                            return [4 /*yield*/, matchPassword_1.default(password_1, result[0].password)];
+                        case 1:
+                            passwordMatches = _a.sent();
+                            if (!passwordMatches)
+                                return [2 /*return*/, res.json({ message: "Incorrect password" })];
+                            res.json({ email: result[0].email, token: genToken_1.default(result[0].id) });
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
         }
         catch (error) {
             res.status(400).json({ message: error.message });

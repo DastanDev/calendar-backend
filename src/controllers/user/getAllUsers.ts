@@ -1,6 +1,5 @@
 import { Handler } from "express"
 import db from "../../config/connectDb"
-import UserModel, { matchPassword } from "../../models/UserModel"
 
 const getAllUsers: Handler = async (req, res) => {
   try {

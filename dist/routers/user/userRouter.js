@@ -13,7 +13,7 @@ var userRouter = express_1.default.Router();
 // /user
 userRouter.post("/login", loginUser_1.default);
 userRouter.post("/register", createUser_1.default);
-userRouter.get("/my/:id", getUserDetails_1.default);
 userRouter.put("/update/:id", updateUser_1.default);
 userRouter.get("/getAll", getAllUsers_1.default);
+userRouter.get("/:id", getUserDetails_1.default);
 exports.default = userRouter;
