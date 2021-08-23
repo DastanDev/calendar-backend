@@ -9,11 +9,12 @@ var getAllUsers_1 = __importDefault(require("../../controllers/user/getAllUsers"
 var getUserDetails_1 = __importDefault(require("../../controllers/user/getUserDetails"));
 var loginUser_1 = __importDefault(require("../../controllers/user/loginUser"));
 var updateUser_1 = __importDefault(require("../../controllers/user/updateUser"));
+var adminAuth_1 = __importDefault(require("../../middleware/adminAuth"));
 var userRouter = express_1.default.Router();
 // /user
 userRouter.post("/login", loginUser_1.default);
 userRouter.post("/register", createUser_1.default);
 userRouter.put("/update/:id", updateUser_1.default);
 userRouter.get("/getAll", getAllUsers_1.default);
-userRouter.get("/:id", getUserDetails_1.default);
+userRouter.get("/:id", adminAuth_1.default, getUserDetails_1.default);
 exports.default = userRouter;
