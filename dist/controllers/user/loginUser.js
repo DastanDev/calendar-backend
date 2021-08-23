@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -54,48 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var genToken_1 = __importDefault(require("../../config/genToken"));
-var UserModel_1 = __importStar(require("../../models/UserModel"));
 // /user/login
 // POST
 var loginUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, passwordMatches, _a, token, error, sendData, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _b.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, UserModel_1.default.findOne({ username: req.body.username })
-                        // increases performance .lean()
-                        .lean()];
-            case 1:
-                user = _b.sent();
-                if (!user)
-                    throw Error("username does not exist!");
-                return [4 /*yield*/, UserModel_1.matchPassword(user.password, req.body.password)];
-            case 2:
-                passwordMatches = _b.sent();
-                if (!passwordMatches)
-                    throw Error("Wrong password");
-                _a = genToken_1.default(user._id), token = _a[0], error = _a[1];
-                if (error)
-                    throw Error("Error generating token for user.");
-                sendData = {
-                    _id: user._id,
-                    username: user.username,
-                    token: token,
-                };
-                res.json(sendData);
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _b.sent();
-                res.status(400).json({ message: error_1.message });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+    return __generator(this, function (_a) {
+        try {
         }
+        catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+        return [2 /*return*/];
     });
 }); };
 exports.default = loginUser;

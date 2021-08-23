@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -55,38 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var UserModel_1 = __importStar(require("../../models/UserModel"));
 var updateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, username, oldPassword, newPassword, _id, user, passwordMatches, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _b.trys.push([0, 4, , 5]);
-                _a = req.body, username = _a.username, oldPassword = _a.oldPassword, newPassword = _a.newPassword, _id = _a._id;
-                if (!username || !oldPassword || !newPassword || !_id)
-                    throw Error("All Fields required!");
-                return [4 /*yield*/, UserModel_1.default.findById(_id)];
-            case 1:
-                user = _b.sent();
-                if (!user)
-                    throw Error("User does not exist");
-                return [4 /*yield*/, UserModel_1.matchPassword(user.password, oldPassword)];
-            case 2:
-                passwordMatches = _b.sent();
-                if (!passwordMatches)
-                    throw Error("Password is incorrect");
-                Object.assign(user, { username: username, password: newPassword });
-                return [4 /*yield*/, user.save()];
-            case 3:
-                _b.sent();
-                res.json(user);
-                return [3 /*break*/, 5];
-            case 4:
-                error_1 = _b.sent();
-                res.status(400).json({ message: error_1.message });
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+    return __generator(this, function (_a) {
+        try {
         }
+        catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+        return [2 /*return*/];
     });
 }); };
 exports.default = updateUser;

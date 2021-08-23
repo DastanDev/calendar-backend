@@ -35,29 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var UserModel_1 = __importDefault(require("../../models/UserModel"));
 var getUserDetails = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, user, error_1;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                id = req.params.id;
-                return [4 /*yield*/, UserModel_1.default.findById(id).lean().select("-password")];
-            case 1:
-                user = _a.sent();
-                res.json(user);
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                res.status(400).json({ message: error_1.message });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+        try {
         }
+        catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+        return [2 /*return*/];
     });
 }); };
 exports.default = getUserDetails;

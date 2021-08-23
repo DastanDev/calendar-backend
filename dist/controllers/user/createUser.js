@@ -39,26 +39,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var UserModel_1 = __importDefault(require("../../models/UserModel"));
+var connectDb_1 = __importDefault(require("../../config/connectDb"));
 var createNewUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var newUser, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                if (!req.body.username || !req.body.password)
-                    throw Error("All field required");
-                return [4 /*yield*/, UserModel_1.default.create(req.body)];
-            case 1:
-                newUser = _a.sent();
-                res.json(newUser);
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                res.status(400).json({ message: error_1.message });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+    var _a, firstName, lastName, email, user, sql;
+    return __generator(this, function (_b) {
+        try {
+            _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email;
+            if (!firstName || !lastName || !email)
+                throw Error("All fields are required");
+            user = { firstName: firstName, lastName: lastName, email: email };
+            sql = "INSERT INTO users SET name= ?";
+            connectDb_1.default.query(sql, user, function (err, user) {
+                if (err)
+                    throw err;
+                res.json({ message: "user created" });
+            });
         }
+        catch (error) {
+            res.status(400).json({ message: error.message });
+        }
+        return [2 /*return*/];
     });
 }); };
 exports.default = createNewUser;
