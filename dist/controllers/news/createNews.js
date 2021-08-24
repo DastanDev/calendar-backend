@@ -42,14 +42,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var slugify_1 = __importDefault(require("slugify"));
 var connectDb_1 = __importDefault(require("../../config/connectDb"));
 var createNews = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, title, content, image, sql, query;
+    var _a, title, content, image, tag, sql, query;
     return __generator(this, function (_b) {
         try {
-            _a = req.body, title = _a.title, content = _a.content, image = _a.image;
-            if (!title || !content || !image)
+            _a = req.body, title = _a.title, content = _a.content, image = _a.image, tag = _a.tag;
+            if (!title || !content || !image || !tag)
                 throw Error("All fields required.");
             sql = "INSERT INTO news SET ?";
-            query = { title: title, content: content, image: image, slug: slugify_1.default(title) };
+            query = {
+                title: title,
+                content: content,
+                image: image,
+                slug: slugify_1.default(title),
+                tag: tag,
+                author: req.user.id,
+            };
             connectDb_1.default.query(sql, query, function (err, result) {
                 if (err)
                     return res.status(400).json({ message: err.message });

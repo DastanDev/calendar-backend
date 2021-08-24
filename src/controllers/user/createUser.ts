@@ -1,4 +1,3 @@
-import { genSalt, hash } from "bcryptjs"
 import { Handler } from "express"
 import db from "../../config/connectDb"
 import hashPassword from "../../config/hashPassword"

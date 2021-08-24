@@ -1,8 +1,10 @@
 put http://localhost:5000/api/news/update/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjI5Nzg2ODUyLCJleHAiOjE2MzAzOTE2NTJ9.fGy_PEjkzRva50UcMvu_28K2Br3IavQwNjg5FNHODGk
 
 {
-	"title": "new",
+	"title": "new hack",
 	"content": "new content",
-	"image": "new image"
+	"image": "new image",
+	"tag": "new tag3"
 }

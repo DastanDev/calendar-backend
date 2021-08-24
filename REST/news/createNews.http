@@ -1,8 +1,10 @@
 POST http://localhost:5000/api/news/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI5Nzg1OTA3LCJleHAiOjE2MzAzOTA3MDd9.Z3ci4-burKbOHjE_dCt4Q6tkD8maVaB_1Gv_pwqpJXc
 
 {
-	"title":"new title 2",
-	"content": "hello world",
-	"image": "this"
+	"title":"news",
+	"content": "news content",
+	"image": "image",
+	"tag": "lifestyle"
 }

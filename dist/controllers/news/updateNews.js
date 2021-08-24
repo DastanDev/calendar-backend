@@ -41,17 +41,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var connectDb_1 = __importDefault(require("../../config/connectDb"));
 var updateNews = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, _a, title, content, image, sql, query;
+    var id_1, _a, title_1, content_1, image_1, tag_1, sql, query;
     return __generator(this, function (_b) {
         try {
-            id = req.params.id;
-            _a = req.body, title = _a.title, content = _a.content, image = _a.image;
-            sql = "UPDATE news SET ? WHERE id = ?";
-            query = [{ title: title, content: content, image: image }, id];
+            id_1 = req.params.id;
+            _a = req.body, title_1 = _a.title, content_1 = _a.content, image_1 = _a.image, tag_1 = _a.tag;
+            if (!title_1 || !content_1 || !image_1 || !tag_1)
+                throw Error("All fields required");
+            sql = "SELECT author FROM news WHERE id = ?";
+            query = [id_1];
             connectDb_1.default.query(sql, query, function (err, result) {
                 if (err)
                     return res.status(400).json({ message: err.message });
-                res.json({ message: "updated" });
+                //
+                var newsId = result[0].author;
+                if (newsId !== req.user.id && !req.user.isAdmin)
+                    return res.status(400).json({ message: "Not authorized" });
+                //
+                var sql2 = "UPDATE news SET ? WHERE id = ?";
+                var query2 = [{ title: title_1, content: content_1, image: image_1, tag: tag_1 }, id_1];
+                connectDb_1.default.query(sql2, query2, function (err, result) {
+                    if (err)
+                        return res.status(400).json({ message: err.message });
+                    res.json({ message: "updated" });
+                });
             });
         }
         catch (error) {
