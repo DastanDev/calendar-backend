@@ -40,25 +40,52 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var connectDb_1 = __importDefault(require("../../config/connectDb"));
+var genToken_1 = __importDefault(require("../../config/genToken"));
 var hashPassword_1 = __importDefault(require("../../config/hashPassword"));
 var createNewUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, firstName, lastName, email, password, sql, hashedPassword, user, error_1;
+    var _a, firstName, lastName, email, password, birthday, profession, phone, gender, degree, descriptionOfEntrepreneurship, sql, hashedPassword, user, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
-                _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password;
-                if (!firstName || !lastName || !email || !password)
+                _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password, birthday = _a.birthday, profession = _a.profession, phone = _a.phone, gender = _a.gender, degree = _a.degree, descriptionOfEntrepreneurship = _a.descriptionOfEntrepreneurship;
+                if (!firstName ||
+                    !lastName ||
+                    !email ||
+                    !password ||
+                    !birthday ||
+                    !profession ||
+                    !phone ||
+                    !gender ||
+                    !degree ||
+                    !descriptionOfEntrepreneurship)
                     throw Error("All fields are required");
                 sql = "INSERT INTO users SET ?";
                 return [4 /*yield*/, hashPassword_1.default(password)];
             case 1:
                 hashedPassword = _b.sent();
-                user = { firstName: firstName, lastName: lastName, email: email, password: hashedPassword };
+                user = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: hashedPassword,
+                    birthday: birthday,
+                    profession: profession,
+                    phone: phone,
+                    gender: gender,
+                    degree: degree,
+                    descriptionOfEntrepreneurship: descriptionOfEntrepreneurship,
+                };
                 connectDb_1.default.query(sql, user, function (err, user) {
                     if (err)
                         return res.json({ message: err.message });
-                    res.json({ message: "user created" });
+                    var id = user.insertId;
+                    var sql = "SELECT * FROM users WHERE id = ?";
+                    connectDb_1.default.query(sql, id, function (err, result) {
+                        if (err)
+                            return res.json({ message: "Internal server error" });
+                        res.json({ email: result[0].email, token: genToken_1.default(id) });
+                    });
                 });
                 return [3 /*break*/, 3];
             case 2:

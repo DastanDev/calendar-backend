@@ -4,6 +4,12 @@ Content-Type: application/json
 {
 	"firstName": "jon",
 	"lastName": "doe",
-	"email": "jon2@gmail.com",
-	"password": "password"
+	"email": "jon2@gmfai3dlf.com",
+	"password": "password",
+	"birthday": "1996-12-31",
+	"profession": "developer",
+	"phone": 1234567,
+	"gender": "male",
+	"degree": "software engineering",
+	"descriptionOfEntrepreneurship": "very good worker"
 }

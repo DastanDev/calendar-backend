@@ -4,8 +4,8 @@ import db from "../../config/connectDb"
 
 const createNews: Handler = async (req, res) => {
   try {
-    const { title, content, image, tag } = req.body
-    if (!title || !content || !image || !tag)
+    const { title, content, image, tag, description } = req.body
+    if (!title || !content || !image || !tag || !description)
       throw Error("All fields required.")
     const sql = "INSERT INTO news SET ?"
     const query = {
@@ -15,6 +15,7 @@ const createNews: Handler = async (req, res) => {
       slug: slugify(title),
       tag,
       author: req.user.id,
+      description,
     }
     db.query(sql, query, (err, result) => {
       if (err) return res.status(400).json({ message: err.message })
