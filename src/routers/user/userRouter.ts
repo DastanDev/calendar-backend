@@ -12,7 +12,7 @@ const userRouter = express.Router()
 userRouter.post("/login", loginUser)
 userRouter.post("/register", createNewUser)
 userRouter.put("/update", auth, updateUser)
-userRouter.get("/getAll", getAllUsers)
-userRouter.get("/my/profile", auth, adminAuth, getUserDetails)
+userRouter.get("/get", getAllUsers)
+userRouter.get("/get/profile", auth, adminAuth, getUserDetails)
 
 export default userRouter
