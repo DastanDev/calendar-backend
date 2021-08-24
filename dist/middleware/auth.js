@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var connectDb_1 = __importDefault(require("../config/connectDb"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var adminAuth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+var auth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var tokenWithBearer, token, decoded, sql;
     return __generator(this, function (_a) {
         try {
@@ -54,8 +54,7 @@ var adminAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
             connectDb_1.default.query(sql, decoded.id, function (err, user) {
                 if (err)
                     return res.status(401).json({ message: err.message });
-                if (!user[0].isAdmin)
-                    return res.status(401).json({ message: "Not authorized" });
+                req.user = user[0];
                 next();
             });
         }
@@ -65,4 +64,4 @@ var adminAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
         return [2 /*return*/];
     });
 }); };
-exports.default = adminAuth;
+exports.default = auth;

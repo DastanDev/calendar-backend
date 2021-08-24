@@ -1,0 +1,10 @@
+PUT http://localhost:5000/api/user/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI5NzgyNTk4LCJleHAiOjE2MzAzODczOTh9.pD4nxiGNzYEpOKDs9BUFUGSd1zYtcVgsYKlGiLn4TZQ
+
+{
+	"firstName": "new name",
+	"lastName": "new last name",
+	"email":"new email",
+	"password": "new password"
+}

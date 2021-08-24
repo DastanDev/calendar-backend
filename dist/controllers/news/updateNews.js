@@ -35,19 +35,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var adminAuth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a;
+var connectDb_1 = __importDefault(require("../../config/connectDb"));
+var updateNews = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, _a, title, content, image, sql, query;
     return __generator(this, function (_b) {
         try {
-            if (!((_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id) || !req.user.isAdmin)
-                throw Error("Not authorized");
-            next();
+            id = req.params.id;
+            _a = req.body, title = _a.title, content = _a.content, image = _a.image;
+            sql = "UPDATE news set ? WHERE id = ?";
+            query = [{ title: title, content: content, image: image }, id];
+            connectDb_1.default.query(sql, query, function (err, result) {
+                if (err)
+                    return res.status(400).json({ message: err.message });
+                res.json({ message: "updated" });
+            });
         }
         catch (error) {
-            res.status(401).json({ message: error.message });
+            res.status(400).json({ message: error.message });
         }
         return [2 /*return*/];
     });
 }); };
-exports.default = adminAuth;
+exports.default = updateNews;

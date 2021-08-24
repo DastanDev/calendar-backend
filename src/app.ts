@@ -4,7 +4,8 @@ import express from "express"
 import db from "./config/connectDb"
 import colors from "colors"
 import userRouter from "./routers/user/userRouter"
-import cors from 'cors'
+import cors from "cors"
+import newsRouter from "./routers/news/newsRouter"
 
 const app = express()
 app.use(express.json())
@@ -20,6 +21,8 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/user", userRouter)
+app.use("/api/news", newsRouter)
+// app.use('/api/events', )
 
 const PORT = 5000 ?? process.env.PORT
 

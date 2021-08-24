@@ -11,9 +11,9 @@ var getOneEvent_1 = __importDefault(require("../../controllers/event/getOneEvent
 var updateEvent_1 = __importDefault(require("../../controllers/event/updateEvent"));
 var eventRouter = express_1.Router();
 // /event
-eventRouter.get("/getAll", getAllEvents_1.default);
-eventRouter.get("/:id", getOneEvent_1.default);
-eventRouter.delete("/:id", deleteEvent_1.default);
+eventRouter.get("/get", getAllEvents_1.default);
+eventRouter.get("/get/:id", getOneEvent_1.default);
+eventRouter.delete("/delete/:id", deleteEvent_1.default);
 eventRouter.post("/create", createEvent_1.default);
 eventRouter.put("/update/:id", updateEvent_1.default);
 exports.default = eventRouter;

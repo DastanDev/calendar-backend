@@ -1,6 +1,7 @@
 import { genSalt, hash } from "bcryptjs"
 import { Handler } from "express"
 import db from "../../config/connectDb"
+import hashPassword from "../../config/hashPassword"
 
 const createNewUser: Handler = async (req, res) => {
   try {
@@ -8,8 +9,7 @@ const createNewUser: Handler = async (req, res) => {
     if (!firstName || !lastName || !email || !password)
       throw Error("All fields are required")
     const sql = `INSERT INTO users SET ?`
-    const salt = await genSalt(10)
-    const hashedPassword = await hash(password, salt)
+    const hashedPassword = await hashPassword(password)
     const user = { firstName, lastName, email, password: hashedPassword }
     db.query(sql, user, (err, user) => {
       if (err) return res.json({ message: err.message })

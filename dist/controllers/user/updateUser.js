@@ -35,15 +35,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var connectDb_1 = __importDefault(require("../../config/connectDb"));
+var hashPassword_1 = __importDefault(require("../../config/hashPassword"));
 var updateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        try {
+    var _a, firstName, lastName, email, password, sql, query, error_1;
+    var _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                _c.trys.push([0, 2, , 3]);
+                _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password;
+                if (!password || !email || !firstName || !lastName)
+                    throw Error("All fields required");
+                sql = "UPDATE users SET ? WHERE id = ?";
+                _b = { firstName: firstName, lastName: lastName, email: email };
+                return [4 /*yield*/, hashPassword_1.default(password)];
+            case 1:
+                query = [
+                    (_b.password = _c.sent(), _b),
+                    ,
+                    req.user.id
+                ];
+                connectDb_1.default.query(sql, query, function (err, result) {
+                    if (err)
+                        return res.status(400).json({ message: err.message });
+                    res.json({ message: "updated" });
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _c.sent();
+                res.status(400).json({ message: error_1.message });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
-        catch (error) {
-            res.status(400).json({ message: error.message });
-        }
-        return [2 /*return*/];
     });
 }); };
 exports.default = updateUser;

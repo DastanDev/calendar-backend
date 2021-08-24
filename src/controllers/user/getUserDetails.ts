@@ -3,10 +3,8 @@ import db from "../../config/connectDb"
 
 const getUserDetails: Handler = async (req, res) => {
   try {
-    const { id } = req.params
-    if (!id) throw Error("Id required")
     const sql = "SELECT * FROM USERS WHERE id = ?"
-    const user = { id }
+    const user = { id: req.user.id }
     db.query(sql, user, (err, result) => {
       if (err) return res.json({ message: err.message })
       res.json(result[0])

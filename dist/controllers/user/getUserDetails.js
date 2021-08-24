@@ -41,14 +41,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var connectDb_1 = __importDefault(require("../../config/connectDb"));
 var getUserDetails = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, sql, user;
+    var sql, user;
     return __generator(this, function (_a) {
         try {
-            id = req.params.id;
-            if (!id)
-                throw Error("Id required");
             sql = "SELECT * FROM USERS WHERE id = ?";
-            user = { id: id };
+            user = { id: req.user.id };
             connectDb_1.default.query(sql, user, function (err, result) {
                 if (err)
                     return res.json({ message: err.message });

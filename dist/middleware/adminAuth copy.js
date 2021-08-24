@@ -35,14 +35,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var connectDb_1 = __importDefault(require("../config/connectDb"));
+var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var adminAuth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a;
-    return __generator(this, function (_b) {
+    var tokenWithBearer, token, decoded, sql;
+    return __generator(this, function (_a) {
         try {
-            if (!((_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id) || !req.user.isAdmin)
+            tokenWithBearer = req.headers.authorization;
+            if (!tokenWithBearer || typeof tokenWithBearer !== "string")
                 throw Error("Not authorized");
-            next();
+            token = tokenWithBearer.split(" ")[1];
+            decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+            sql = "SELECT * FROM users WHERE id = ?";
+            connectDb_1.default.query(sql, decoded.id, function (err, user) {
+                if (err)
+                    return res.status(401).json({ message: err.message });
+                if (!user[0].isAdmin)
+                    return res.status(401).json({ message: "Not authorized" });
+                req.user = user[0];
+                next();
+            });
         }
         catch (error) {
             res.status(401).json({ message: error.message });

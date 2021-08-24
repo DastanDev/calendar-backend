@@ -36,18 +36,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var adminAuth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a;
-    return __generator(this, function (_b) {
-        try {
-            if (!((_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id) || !req.user.isAdmin)
-                throw Error("Not authorized");
-            next();
+var bcryptjs_1 = require("bcryptjs");
+var hashPassword = function (password) { return __awaiter(void 0, void 0, void 0, function () {
+    var salt;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, bcryptjs_1.genSalt(10)];
+            case 1:
+                salt = _a.sent();
+                return [2 /*return*/, bcryptjs_1.hash(password, salt)];
         }
-        catch (error) {
-            res.status(401).json({ message: error.message });
-        }
-        return [2 /*return*/];
     });
 }); };
-exports.default = adminAuth;
+exports.default = hashPassword;

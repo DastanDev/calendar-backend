@@ -35,19 +35,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var adminAuth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a;
-    return __generator(this, function (_b) {
+var connectDb_1 = __importDefault(require("../../config/connectDb"));
+var getAllNews = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var sql;
+    return __generator(this, function (_a) {
         try {
-            if (!((_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id) || !req.user.isAdmin)
-                throw Error("Not authorized");
-            next();
+            sql = "SELECT * FROM news";
+            connectDb_1.default.query(sql, function (err, result) {
+                if (err)
+                    return res.status(400).json({ message: err.message });
+                res.json(result);
+            });
         }
         catch (error) {
-            res.status(401).json({ message: error.message });
+            res.status(400).json({ message: error.message });
         }
         return [2 /*return*/];
     });
 }); };
-exports.default = adminAuth;
+exports.default = getAllNews;

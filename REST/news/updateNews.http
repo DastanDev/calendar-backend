@@ -1,0 +1,8 @@
+put http://localhost:5000/api/news/update/1
+Content-Type: application/json
+
+{
+	"title": "new",
+	"content": "new content",
+	"image": "new image"
+}
