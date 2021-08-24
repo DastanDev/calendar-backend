@@ -5,6 +5,7 @@ import hashPassword from "../../config/hashPassword"
 
 const createNewUser: Handler = async (req, res) => {
   try {
+    console.log(req.body)
     const {
       firstName,
       lastName,

@@ -48,6 +48,7 @@ var createNewUser = function (req, res) { return __awaiter(void 0, void 0, void 
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
+                console.log(req.body);
                 _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, password = _a.password, birthday = _a.birthday, profession = _a.profession, phone = _a.phone, gender = _a.gender, degree = _a.degree, descriptionOfEntrepreneurship = _a.descriptionOfEntrepreneurship;
                 if (!firstName ||
                     !lastName ||
