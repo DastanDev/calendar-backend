@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "concurrently \"tsc -w\" \"nodemon dist/app.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "populate": "node populate.db.js"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
