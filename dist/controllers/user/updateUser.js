@@ -57,7 +57,6 @@ var updateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, 
             case 1:
                 query = [
                     (_b.password = _c.sent(), _b),
-                    ,
                     req.user.id
                 ];
                 connectDb_1.default.query(sql, query, function (err, result) {

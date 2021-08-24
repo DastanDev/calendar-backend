@@ -46,7 +46,7 @@ var updateNews = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         try {
             id = req.params.id;
             _a = req.body, title = _a.title, content = _a.content, image = _a.image;
-            sql = "UPDATE news set ? WHERE id = ?";
+            sql = "UPDATE news SET ? WHERE id = ?";
             query = [{ title: title, content: content, image: image }, id];
             connectDb_1.default.query(sql, query, function (err, result) {
                 if (err)

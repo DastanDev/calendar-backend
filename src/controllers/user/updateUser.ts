@@ -10,7 +10,6 @@ const updateUser: Handler = async (req, res) => {
     const sql = "UPDATE users SET ? WHERE id = ?"
     const query = [
       { firstName, lastName, email, password: await hashPassword(password) },
-      ,
       req.user.id,
     ]
     db.query(sql, query, (err, result) => {
