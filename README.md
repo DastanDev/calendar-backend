@@ -7,5 +7,5 @@
 - send request (you should get back the email address and the token)
 - copy token and go to `populate.db.js` and scroll down until you find the axios operation and paste the token after `Bearer` with a space.
 - run npm run populate.db.js
-- run npm run dev
+- run npm start
 - congrats your server is now running on port 5000
