@@ -42,8 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var connectDb_1 = __importDefault(require("../../config/connectDb"));
 var hashPassword_1 = __importDefault(require("../../config/hashPassword"));
 var updateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, firstName, lastName, email, password, sql, query, error_1;
-    var _b;
+    var _a, firstName, lastName, email, password, sql, query, _b, error_1;
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0:

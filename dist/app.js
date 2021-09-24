@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -25,5 +26,5 @@ app.get("/", function (req, res) {
 app.use("/api/user", userRouter_1.default);
 app.use("/api/news", newsRouter_1.default);
 // app.use('/api/events', )
-var PORT = 5000 !== null && 5000 !== void 0 ? 5000 : process.env.PORT;
+var PORT = (_a = 5000) !== null && _a !== void 0 ? _a : process.env.PORT;
 app.listen(PORT, function () { return console.log("Listening on http://localhost:" + PORT); });
